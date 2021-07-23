@@ -1,0 +1,21 @@
+{
+  "name": "psyconymous",
+  "version": "1.0.0",
+  "description": "mental health app",
+  "scripts": {
+    "start:api":"npm start --prefix='backend'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Psyconymous/Psyconymous-App.git"
+  },
+  "keywords": [
+    "mental-health"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Psyconymous/Psyconymous-App/issues"
+  },
+  "homepage": "https://github.com/Psyconymous/Psyconymous-App#readme"
+}
