@@ -1,5 +1,8 @@
 import { Socket } from 'socket.io'
 
-export function ping (socket: Socket) {
-  socket.emit('pong', { message: 'handshake complete' })
+export function main (socket: Socket) {
+  console.log('user connected')
+  socket.on('ping', () => {
+    socket.emit('pong', { message: 'handshake complete' })
+  })
 }
