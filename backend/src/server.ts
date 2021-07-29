@@ -2,10 +2,15 @@ import app from './index'
 import { Server, Socket } from 'socket.io'
 
 const port = process.env.PORT || 5000
-const io = new Server(app)
+const io = new Server(app, {
+    cors: {
+        origin: "http://localhost:8080",
+    }
+})
 
 io.on('connection', (socket: Socket) => {
   // ping
+  console.log("hmm")
   socket.on('ping', () => {
     socket.emit('pong', { message: 'handshake complete' })
   })
