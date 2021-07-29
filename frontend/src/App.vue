@@ -31,19 +31,3 @@
   color: #42b983;
 }
 </style>
-
-<script lang="ts">
-import { defineComponent, onUnmounted } from "vue";
-import socket from "./socket";
-
-export default defineComponent({
-  setup() {
-    socket.on("connect_error", () => {
-      console.log("weird");
-    });
-    onUnmounted(() => {
-      socket.off("connect_error");
-    });
-  },
-});
-</script>

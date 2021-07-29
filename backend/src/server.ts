@@ -10,7 +10,6 @@ const io = new Server(app, {
 
 io.on('connection', (socket: Socket) => {
   // ping
-  console.log("hmm")
   socket.on('ping', () => {
     socket.emit('pong', { message: 'handshake complete' })
   })
