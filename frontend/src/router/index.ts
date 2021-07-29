@@ -19,9 +19,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/chat",
     name: "Chat",
-    component: () => 
-      import("../views/ChatInterface.vue"),
-  }
+    component: () => import("../views/ChatInterface.vue"),
+  },
 ];
 
 const router = createRouter({

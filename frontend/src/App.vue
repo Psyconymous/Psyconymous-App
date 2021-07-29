@@ -1,10 +1,12 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/chat">Chat</router-link>
+  <div>
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/chat">Chat</router-link>
+    </div>
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <style>
@@ -29,3 +31,19 @@
   color: #42b983;
 }
 </style>
+
+<script lang="ts">
+import { defineComponent, onUnmounted } from "vue";
+import socket from "./socket";
+
+export default defineComponent({
+  setup() {
+    socket.on("connect_error", () => {
+      console.log("weird");
+    });
+    onUnmounted(() => {
+      socket.off("connect_error");
+    });
+  },
+});
+</script>
