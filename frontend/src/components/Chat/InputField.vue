@@ -3,22 +3,33 @@
     <input
       v-model="message"
       class="flex-grow rounded-lg border-2"
-      @keyup.enter="sendMsg"
+      @keyup.enter="sendMsg(message)"
     />
   </div>
 </template>
+
 <script lang="ts">
 import { ref, defineComponent } from "vue";
+import socket from "../../socket";
 
 const message = ref("");
 
-/* Will change this to a POST request to the server socket when it is implemented */
-function sendMsg() {
-  console.log(`I sent ${message.value}`);
-}
 export default defineComponent({
   name: "ChatInputField",
-  setup() {
+  props: {
+    recipientId: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const sendMsg = (content: string) => {
+      socket.emit("private message", {
+        content,
+        to: props.recipientId,
+      });
+      message.value = "";
+    };
     return { message, sendMsg };
   },
 });

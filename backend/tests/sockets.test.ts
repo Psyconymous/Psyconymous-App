@@ -15,6 +15,7 @@ describe('Ping Sockets', () => {
   const clientServer = Client('http://localhost:5000')
 
   beforeAll((done: any) => {
+    jest.setTimeout(2000);
     app.listen(5000, () => { })
     socketServer.on('connect', (socket: Socket) => {
       // ping
