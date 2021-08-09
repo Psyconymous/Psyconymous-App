@@ -1,16 +1,14 @@
 <template>
   <div class="grid grid-cols-8 grid-rows-6">
     <div class="mx-auto col-span-1 row-span-6">
-      <p>{{ users }}</p>
     </div>
     <div class="col-span-6 row-span-5">
       <div
-        class="object-left"
+        class="flex"
         v-for="(message, index) in messages"
         :key="index"
       >
-        <p></p>
-        <p>{{ message.from }} : {{ message.content }}</p>
+        <MessageBox :message="message"/>
       </div>
     </div>
     <div class="mx-2 col-span-1 row-span-6">Extra sidebar Placeholder</div>
@@ -25,6 +23,7 @@
 import { defineComponent, ref } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import ChatInput from "@/components/Chat/InputField.vue";
+import MessageBox from "@/components/Chat/Message.vue";
 import socket from "../socket";
 
 const users = ref([] as Array<any>);
@@ -34,6 +33,7 @@ export default defineComponent({
   name: "ChatPage",
   components: {
     ChatInput,
+    MessageBox
   },
   setup() {
     socket.connect();
