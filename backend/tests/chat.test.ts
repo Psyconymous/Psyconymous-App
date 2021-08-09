@@ -2,10 +2,11 @@ import app from '../src/index'
 import { Server, Socket } from 'socket.io'
 import Client from 'socket.io-client'
 import second from './client'
+import socketHandler from '../src/sockets/sockets'
 
-  interface User {
-    userId: string
-  }
+interface User {
+	userId: string
+}
 
 describe('chat system', () => {
   // initialisation
@@ -19,28 +20,7 @@ describe('chat system', () => {
     socketServer = new Server(app)
 
     socketServer.on('connect', (socket: Socket) => {
-      // in memory store of users
-      const users : Array<User> = []
-
-      // gives the new user the list of users online
-      for (const [id, socket] of socketServer.of('/').sockets) {
-        users.push({
-          userId: id
-        })
-        socket.emit('users', users)
-      }
-      // get all users active
-      socket.on('users', () => {
-        socketServer.emit('users', users)
-      })
-
-      // private messages, recieve and sent out to a specific user that is online
-      socket.on('private message', ({ content, to } : any) => {
-        socket.to(to).emit('private message', {
-          content,
-          from: socket.id
-        })
-      })
+  	socketHandler(socket, socketServer)  
     })
 
     done()
