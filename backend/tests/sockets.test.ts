@@ -1,6 +1,7 @@
 import app from '../src/index'
 import { Server, Socket } from 'socket.io'
 import Client from 'socket.io-client'
+import socketHandler from '../src/sockets/sockets'
 
 interface pingArgs {
   message: string
@@ -18,44 +19,10 @@ describe('Ping Sockets', () => {
     jest.setTimeout(2000);
     app.listen(5000, () => { })
     socketServer.on('connect', (socket: Socket) => {
-      // ping
-      socket.on('ping', () => {
-        socket.emit('pong', { message: 'handshake complete' })
-      })
-
-      // in memory store of users
-      const users : Array<User> = []
-
-      // gives the new user the list of users online
-      for (const [id, socket] of socketServer.of('/').sockets) {
-        users.push({
-          userId: id
-        })
-        socket.emit('users', users)
-      }
-
-      // get all users active
-      socket.on('users', () => {
-        socketServer.emit('users', users)
-      })
-
-      // notifies other users that a new user poppd up and give them then id of the new user
-      socket.broadcast.emit('user connected', {
-        userID: socket.id
-      })
-
-      // private messages, recieve and sent out to a specific user that is online
-      socket.on('private message', ({ content, to } : any) => {
-        socket.to(to).emit('private message', {
-          content,
-          from: socket.id
-        })
-      })
+    	socketHandler(socket, socketServer)
+	done()
     })
-
-    done()
   })
-
   // ping test
   test('it should return Pong', (done : any) => {
     clientServer.emit('ping', 'test')
