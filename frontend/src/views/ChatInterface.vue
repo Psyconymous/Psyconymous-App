@@ -1,13 +1,26 @@
 <template>
   <div class="grid grid-cols-12">
     <div class="mx-auto col-span-2">Sidebar Placeholder</div>
-    <div class="grid grid-col-3 col-span-9 mb-4 ">
-      <div v-if="users.length > 0" class=""> 
-        <p class="text-2xl text-gray-500 opacity-60">Sweet, now you can chat with </p>
-        <p class="text-4xl"><span class="text-gray-500">{{ users[0].userId }}</span> <span class="text-gray-500 opacity-60">!</span></p>
+    <div class="grid grid-col-3 col-span-9 mb-4">
+      <div v-if="users.length > 0" class="">
+        <p class="text-2xl text-gray-500 opacity-60">
+          Sweet, now you can chat with
+        </p>
+        <p class="text-4xl">
+          <span class="text-gray-500">{{ users[0].userId }}</span>
+          <span class="text-gray-500 opacity-60">!</span>
+        </p>
       </div>
-      <div class="mt-4 ">
-        <MessageBox class="flex" :class="message.from === socket.id ? 'flex-row-reverse' : ''" v-for="(message, index) in messages" :key="index" :previousMessage="index !== 0 ? messages[index-1] : undefined" :message="message" :first="index === 0">
+      <div class="mt-4">
+        <MessageBox
+          class="flex"
+          :class="message.from === socket.id ? 'flex-row-reverse' : ''"
+          v-for="(message, index) in messages"
+          :key="index"
+          :previousMessage="index !== 0 ? messages[index - 1] : undefined"
+          :message="message"
+          :first="index === 0"
+        >
         </MessageBox>
       </div>
     </div>
@@ -28,7 +41,6 @@ import ChatInput from "@/components/Chat/InputField.vue";
 import MessageBox from "@/components/Chat/Message.vue";
 import socket from "../socket";
 
-
 export default defineComponent({
   name: "ChatPage",
   components: {
@@ -36,7 +48,6 @@ export default defineComponent({
     MessageBox,
   },
   setup() {
-
     socket.connect();
 
     socket.on("connect", () =>

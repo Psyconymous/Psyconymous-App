@@ -1,7 +1,14 @@
 <template>
   <div>
     <div class="mx-2 left-0 top-0 align-left">
-      <h3 v-if="previousMessage === undefined || message.from !== previousMessage.from" class="">{{message.from}}</h3>
+      <h3
+        v-if="
+          previousMessage === undefined || message.from !== previousMessage.from
+        "
+        class=""
+      >
+        {{ message.from }}
+      </h3>
       <p class="border-2 rounded-lg px-2">{{ message.content }}</p>
     </div>
   </div>
@@ -19,7 +26,7 @@ export default defineComponent({
     previousMessage: {
       type: Object,
       required: true,
-    }
+    },
   },
 });
 </script>

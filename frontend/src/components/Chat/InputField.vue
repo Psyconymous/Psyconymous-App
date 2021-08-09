@@ -12,7 +12,6 @@
 import { ref, defineComponent } from "vue";
 import socket from "../../socket";
 
-
 export default defineComponent({
   name: "ChatInputField",
   props: {
@@ -25,13 +24,13 @@ export default defineComponent({
     const message = ref("");
 
     const sendMsg = (content: string) => {
-      if(content !== "") {
+      if (content !== "") {
         socket.emit("private message", {
           content,
           to: props.recipientId,
         });
         message.value = "";
-        emit("sentMsg", { message: { content:content, from:socket.id } });
+        emit("sentMsg", { message: { content: content, from: socket.id } });
       }
     };
     return { message, sendMsg };
