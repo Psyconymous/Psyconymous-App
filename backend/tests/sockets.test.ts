@@ -13,13 +13,15 @@ interface User {
 describe('Ping Sockets', () => {
   // initialisation
   const socketServer = new Server(app)
-  const clientServer = Client('http://localhost:5000')
+  const clientServer = Client('http://localhost:5010')
 
   beforeAll((done: any) => {
-    jest.setTimeout(2000);
-    app.listen(5000, () => { })
+    app.listen(5010, () => { })
+
+    const DB : Array<User> = []
+
     socketServer.on('connect', (socket: Socket) => {
-    	socketHandler(socket, socketServer)
+    	socketHandler(socket, socketServer, DB)
 	done()
     })
   })

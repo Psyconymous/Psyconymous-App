@@ -1,3 +1,3 @@
 import Client from 'socket.io-client'
 
-export default Client('http://localhost:5000')
+export default Client('http://localhost:5005')
