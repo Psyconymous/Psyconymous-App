@@ -1,6 +1,7 @@
 import app from './index'
 import { Server, Socket } from 'socket.io'
 import socketHandlers from './sockets/sockets'
+import { User } from '../interfaces'
 
 const port = process.env.PORT || 5000
 const io = new Server(app, {
@@ -9,8 +10,10 @@ const io = new Server(app, {
     }
 })
 
+const DB : Array<User> = [] 
+
 io.on('connection', (socket: Socket) => {
-	socketHandlers(socket, io)
+	socketHandlers(socket, io, DB)
 })
 
 app.listen(port, () => {

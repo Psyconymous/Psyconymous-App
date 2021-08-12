@@ -11,16 +11,17 @@ interface User {
 describe('chat system', () => {
   // initialisation
   let socketServer : any
-  const clientServerOne = Client('http://localhost:5000')
+  const clientServerOne = Client('http://localhost:5005')
   const clientServerTwo = second
 
   beforeAll((done: any) => {
-    jest.setTimeout(3000)
-    app.listen(5000, () => { })
+    app.listen(5005, () => { })
     socketServer = new Server(app)
 
+    const DB : Array<User> = [] 
+
     socketServer.on('connect', (socket: Socket) => {
-  	socketHandler(socket, socketServer)  
+  	socketHandler(socket, socketServer, DB)  
     })
 
     done()
