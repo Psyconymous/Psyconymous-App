@@ -7,6 +7,20 @@
 Safe Place for people to vent their woes
 Anonymous and Privacy Oriented
 
+## How to install the project
+
+1) Clone The Repo
+``` gh repo clone Psyconymous/Psyconymous-App ```
+
+2) Install Main Dependencies (mostly for prod and workflow)
+``` cd Psyconymous-App && npm install ```
+
+3) Install Sub Project Dependencies (for actual code and project dependencies)
+``` cd frontend/backend && npm install ```
+
+4) Run the App in Dev environment using
+``` npm run dev ```
+
 ## Tech Stack
 Frontend
 - VueJs
