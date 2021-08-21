@@ -5,7 +5,7 @@
   "scripts": {
     "start:api": "npm run start --prefix=backend",
     "dev-backend": "cd backend && npm run dev",
-    "dev-frontend": "cd frontend && npm run serve",
+    "dev-frontend": "cd frontend && npm run dev",
     "start": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
   },
   "repository": {
@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/Psyconymous/Psyconymous-App/issues"
   },
-  "homepage": "https://github.com/Psyconymous/Psyconymous-App#readme"
+  "homepage": "https://github.com/Psyconymous/Psyconymous-App#readme",
+  "dependencies": {}
 }
