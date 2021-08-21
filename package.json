@@ -4,9 +4,11 @@
   "description": "mental health app",
   "scripts": {
     "start:api": "npm run start --prefix=backend",
+    "start:web": "npm run start --prefix=frontend",
+    "start": "./node_modules/.bin/concurrently \"npm run start:api\" \"npm run start:web\"",
     "dev-backend": "cd backend && npm run dev",
     "dev-frontend": "cd frontend && npm run dev",
-    "start": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
+    "dev": "./node_modules/.bin/concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,8 @@
     "url": "https://github.com/Psyconymous/Psyconymous-App/issues"
   },
   "homepage": "https://github.com/Psyconymous/Psyconymous-App#readme",
-  "dependencies": {}
+  "dependencies": {
+    "concurrently": "^6.2.1",
+    "serve": "^12.0.0"
+  }
 }

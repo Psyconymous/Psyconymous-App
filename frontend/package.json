@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "start": "../node_modules/.bin/serve -l 8080 ./dist"
   },
   "dependencies": {
     "socket.io-client": "^4.1.3",
