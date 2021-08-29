@@ -56,6 +56,12 @@ function main (socket: Socket, io: any, db: Array<User>) {
   socket.on('users', () => {
     io.in(socket.id).emit('users', users)
   })
+
+  // disconnect
+  socket.on('client_disconnect', ({ to }) => {
+    io.in(to).emit('client_disconnected', '')
+  })
+
 }
 
 export default main
