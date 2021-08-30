@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen flex flex-col overflow-y-hidden bg-emerald-500 container">
-    <div v-if="!matched" class="py-5 h-full flex">
+    <div v-if="!matched" class="pt-5 h-full flex">
       <div class="m-auto">
       <svg class="" version="1.1" id="L2" width="300px" height="300px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
@@ -107,6 +107,7 @@ export default defineComponent({
     const onSentMsg = (message: any) => messages.value.push(message.message);
 
     onBeforeRouteLeave(() => {
+      socket.emit("client_disconnect");
       socket.offAny();
       socket.disconnect();
     });
