@@ -2,6 +2,7 @@ import app from '../src/index'
 import { Server, Socket } from 'socket.io'
 import Client from 'socket.io-client'
 import socketHandler from '../src/sockets/sockets'
+import memoryStorage from '../src/sockets/sessionStorage'
 
 interface pingArgs {
   message: string
@@ -19,11 +20,17 @@ describe('Ping Sockets', () => {
     app.listen(5010, () => { })
 
     const DB : Array<User> = []
+    const sessionDB = new memoryStorage()
+
+    socketServer.use((socket: Socket, next: any) => {
+      socketHandler.middleware(socket, next, sessionDB)
+    })
 
     socketServer.on('connect', (socket: Socket) => {
-    	socketHandler(socket, socketServer, DB)
-	done()
+    	socketHandler.main(socket, socketServer, DB, sessionDB)
     })
+    
+    done()
   })
   // ping test
   test('it should return Pong', (done : any) => {
