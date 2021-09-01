@@ -1,4 +1,4 @@
-import app from '../src/index'
+import app from '../src/server'
 import { Server, Socket } from 'socket.io'
 import Client from 'socket.io-client'
 import socketHandler from '../src/sockets/sockets'

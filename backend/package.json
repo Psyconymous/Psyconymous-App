@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.ts",
-    "start": "node build/server.js",
+    "dev": "nodemon src/index.ts",
+    "start": "node build/index.js",
     "build": "./node_modules/.bin/tsc --project tsconfig.prod.json",
     "lint": "./node_modules/.bin/eslint --fix src/**/*",
     "test": "./node_modules/.bin/jest"
