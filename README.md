@@ -1,10 +1,12 @@
 # Psyconymous App
 
-<p align="center"> <img src="./frontend/public/logo.svg"></img> </p>
-
-[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript-150x33.png?v=101)](https://github.com/ellerbrock/typescript-badges/)
-
-<img src="https://img.shields.io/github/languages/code-size/Psyconymous/Psyconymous-App?style=for-the-badge">
+<p align="center"> 
+  <img width="256px" src="./frontend/public/logo.svg"></img>
+  
+  [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript-150x33.png?v=101)](https://github.com/ellerbrock/typescript-badges/)
+  
+  <img src="https://img.shields.io/github/languages/code-size/Psyconymous/Psyconymous-App?style=for-the-badge">
+</p>
 
 Safe Place for people to vent their woes
 Anonymous and Privacy Oriented
