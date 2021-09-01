@@ -1,9 +1,9 @@
-# Psyconymous App
-
 <p align="center"> 
-  <img width="256px" src="./frontend/public/logo.svg"></img>
-  
-  [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript-150x33.png?v=101)](https://github.com/ellerbrock/typescript-badges/)
+  <img width="256px" src="./frontend/public/logo.png"></img>
+
+  <h1 align="center"> Psyconymous </h1>
+
+  <img src="https://badges.frapsoft.com/typescript/code/typescript-150x33.png?v=101"></img>
   
   <img src="https://img.shields.io/github/languages/code-size/Psyconymous/Psyconymous-App?style=for-the-badge">
 </p>
