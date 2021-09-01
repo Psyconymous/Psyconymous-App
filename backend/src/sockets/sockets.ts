@@ -1,11 +1,5 @@
-import { Socket } from 'socket.io'
-import { User } from '../../interfaces'
+import { User, dynamicSocket } from '../interfaces'
 import crypto from 'crypto'
-
-interface dynamicSocket extends Socket {
-  sessionID? : string
-  userID? : string
-}
 
 function randomID () {
   return crypto.randomBytes(8).toString('hex')
@@ -78,23 +72,6 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       content,
       from: socket.userID
     })
-  })
-
-  // used for testing
-  // in memory store of users
-  const users : Array<any> = []
-
-  // gives the new user the list of users online
-  for (const [id, socket] of io.of('/').sockets) {
-	  users.push({
-		  userId: id
-	  })
-	  socket.emit('users', users)
-  }
-
-  // get all users active
-  socket.on('users', () => {
-	  io.in(socket.id).emit('users', users)
   })
 
   // disconnect handler

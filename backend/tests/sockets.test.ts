@@ -42,15 +42,6 @@ describe('Ping Sockets', () => {
     })
   })
 
-  // in memory userbase test
-  test('when connected, it should return a list of users', (done: any) => {
-    clientServer.emit('users', '')
-    clientServer.on('users', (users: Array<User>) => {
-      expect(users.length).toBe(1)
-      done()
-    })
-  })
-
   afterAll((done: any) => {
     socketServer.close()
     clientServer.close()

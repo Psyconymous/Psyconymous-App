@@ -1,7 +1,7 @@
 import app from './index'
 import { Server, Socket } from 'socket.io'
 import socketHandlers from './sockets/sockets'
-import { User } from '../interfaces'
+import { User } from './interfaces'
 import memoryStorage from './sockets/sessionStorage'
 
 const port = process.env.PORT || 5000
