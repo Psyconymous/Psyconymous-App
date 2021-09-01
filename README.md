@@ -7,18 +7,23 @@
 Safe Place for people to vent their woes
 Anonymous and Privacy Oriented
 
+## How it works
+In order for the app to function, we need at least 2 people using it at the same time
+
+When the frontend loads, a socket is connected and then placed in a queue to be matched with the second client
+
+Chatting can then be carried out between them
+(no data is saved, a refresh will remove it)
+
+However the session ID will be saved to make sure that the connection doesn't interrupted in case of accidental refreshes
+
 ## How to install the project
 
 1) Clone The Repo
 ``` gh repo clone Psyconymous/Psyconymous-App ```
-
-2) Install Main Dependencies (mostly for prod and workflow)
+2) Install Dependencies
 ``` cd Psyconymous-App && npm install ```
-
-3) Install Sub Project Dependencies (for actual code and project dependencies)
-``` cd frontend/backend && npm install ```
-
-4) Run the App in Dev environment using
+3) Run the App in Dev environment using
 ``` npm run dev ```
 
 ## Tech Stack
@@ -28,4 +33,5 @@ Frontend
 
 Backend
 - Express
+- Socket.io
 - MongoDB

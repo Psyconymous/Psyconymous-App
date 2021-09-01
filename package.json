@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "mental health app",
   "scripts": {
+    "postinstall":"npm install --prefix=backend && npm install --prefix=frontend",
     "start:api": "npm run start --prefix=backend",
     "start:web": "npm run start --prefix=frontend",
     "start": "./node_modules/.bin/concurrently \"npm run start:api\" \"npm run start:web\"",

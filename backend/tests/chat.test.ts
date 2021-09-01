@@ -3,10 +3,10 @@ import { Server, Socket } from 'socket.io'
 import Client from 'socket.io-client'
 import second from './client'
 import socketHandler from '../src/sockets/sockets'
-import memoryStorage from '../src/sockets/sessionStorage'
+import MemoryStorage from '../src/sockets/sessionStorage'
 
 interface User {
-	userId: string
+  userId: string
 }
 
 describe('chat system', () => {
@@ -19,15 +19,15 @@ describe('chat system', () => {
     app.listen(5005, () => { })
     socketServer = new Server(app)
 
-    const DB : Array<User> = [] 
-    const sessionDB = new memoryStorage()
+    const DB : Array<User> = []
+    const sessionDB = new MemoryStorage()
 
     socketServer.use((socket: Socket, next: any) => {
       socketHandler.middleware(socket, next, sessionDB)
     })
 
     socketServer.on('connect', (socket: Socket) => {
-  	  socketHandler.main(socket, socketServer, DB, sessionDB)  
+      socketHandler.main(socket, socketServer, DB, sessionDB)
     })
 
     done()
@@ -40,12 +40,11 @@ describe('chat system', () => {
     clientServerOne.on('matched', (res:any) => {
       const message = 'hi'
       clientServerOne.emit('private message', { to: res.matchedUser, content: message })
-      clientServerTwo.on('private message',(res:any) => { 
+      clientServerTwo.on('private message', (res:any) => {
         expect(res.content).toBe(message)
         done()
       })
     })
-
   })
 
   afterAll((done: any) => {
