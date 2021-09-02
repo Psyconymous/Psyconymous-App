@@ -63,6 +63,7 @@
 </template>
 
 <script lang="ts">
+
 import { defineComponent, ref } from "vue";
 import { onBeforeRouteLeave } from "vue-router";
 import ChatInput from "../components/Chat/InputField.vue";
@@ -90,12 +91,11 @@ export default defineComponent({
     socket.on("connect_error", () => {
       error.value = "There was problem connecting to the server :/"
     });
-
     const chatPartner = ref("");
     socket.on("matched", (response) => {
       chatPartner.value = response.matchedUser; 
       matched.value = true; 
-      console.log(`{chatPartner.value}`)
+      console.log(`You are matched with ${chatPartner.value}`)
     })
 
     const messages = ref([] as Array<any>);
@@ -106,8 +106,14 @@ export default defineComponent({
 
     const onSentMsg = (message: any) => messages.value.push(message.message);
 
+    socket.on("client_disconnected", () => {
+      console.log("he left ;-;")
+      chatPartner.value = ""
+      matched.value = false
+      socket.emit("match");
+    })
     onBeforeRouteLeave(() => {
-      socket.emit("client_disconnect");
+      socket.emit("client_disconnect", { to: chatPartner.value });
       socket.offAny();
       socket.disconnect();
     });
