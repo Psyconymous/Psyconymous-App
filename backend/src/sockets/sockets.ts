@@ -74,6 +74,27 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
     })
   })
 
+  // used for testing
+  // in memory store of users
+  const users : Array<any> = []
+
+  // gives the new user the list of users online
+  for (const [id, socket] of io.of('/').sockets) {
+    users.push({
+      userId: id
+    })
+    socket.emit('users', users)
+  }
+
+  // get all users active
+  socket.on('users', () => {
+    io.in(socket.id).emit('users', users)
+  })
+
+  // disconnect
+  socket.on('client_disconnect', ({ to }) => {
+    io.in(to).emit('client_disconnected', '')
+  })  
   // disconnect handler
   socket.on('disconnect', () => {
     sessionDB.deleteSession(socket.sessionID)

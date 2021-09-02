@@ -6,11 +6,10 @@ import memoryStorage from './sockets/sessionStorage'
 
 const port = process.env.PORT || 5000
 const io = new Server(app, {
-    cors: {
-        origin: "http://localhost:8080",
-    }
+  cors: {
+    origin: 'http://localhost:8080'
+  }
 })
-
 const DB : Array<User> = [] 
 const sessionDB = new memoryStorage()
 
