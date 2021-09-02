@@ -3,9 +3,10 @@ import { Server, Socket } from 'socket.io'
 import Client from 'socket.io-client'
 import second from './client'
 import socketHandler from '../src/sockets/sockets'
+import MemoryStorage from '../src/sockets/sessionStorage'
 
 interface User {
-	userId: string
+  userId: string
 }
 
 describe('chat system', () => {
@@ -18,29 +19,31 @@ describe('chat system', () => {
     app.listen(5005, () => { })
     socketServer = new Server(app)
 
-    const DB : Array<User> = [] 
+    const DB : Array<User> = []
+    const sessionDB = new MemoryStorage()
+
+    socketServer.use((socket: Socket, next: any) => {
+      socketHandler.middleware(socket, next, sessionDB)
+    })
 
     socketServer.on('connect', (socket: Socket) => {
-  	socketHandler(socket, socketServer, DB)  
+      socketHandler.main(socket, socketServer, DB, sessionDB)
     })
 
     done()
   })
 
   test('private message should work', (done: any) => {
-    let target
-    clientServerOne.emit('users', '')
-    clientServerOne.on('users', (users: Array<User>) => {
-      for (let i = 0; i < users.length; i++) {
-        if (users[i].userId !== clientServerOne.id) {
-          target = users[i].userId
-          clientServerOne.emit('private message', { content: 'Hi', to: target })
-          clientServerTwo.on('private message', ({ content }) => {
-            expect(content).toBe('Hi')
-            done()
-          })
-        }
-      }
+    clientServerOne.emit('match', '')
+    clientServerTwo.emit('match', '')
+
+    clientServerOne.on('matched', (res:any) => {
+      const message = 'hi'
+      clientServerOne.emit('private message', { to: res.matchedUser, content: message })
+      clientServerTwo.on('private message', (res:any) => {
+        expect(res.content).toBe(message)
+        done()
+      })
     })
   })
 
