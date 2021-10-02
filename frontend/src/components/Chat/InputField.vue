@@ -26,7 +26,7 @@ export default defineComponent({
 
     const sendMsg = (content: string) => {
       if (content !== "") {
-        console.log(content)
+        console.log(content);
         socket.emit("private message", {
           content,
           to: props.recipientId,
