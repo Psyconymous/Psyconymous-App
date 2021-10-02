@@ -18,8 +18,9 @@ function middleware (socket: dynamicSocket, next: any, sessionDB: any) {
     }
   }
 
+  // adding username support 
   socket.sessionID = randomID()
-  socket.userID = randomID()
+  socket.userID = socket.username
   next()
 }
 
