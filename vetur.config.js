@@ -16,7 +16,7 @@ module.exports = {
         // **required**
         // Where is your project?\
         // It is relative to `vetur.config.js`
-        root: './frontend',
+        root: './frontend/',
         package: './package.json',
         tsconfig: './tsconfig.json',
         globalComponents: [
