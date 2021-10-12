@@ -2,9 +2,8 @@
   <div class="flex">
     <input
       v-model="message"
-      class="flex-grow rounded-lg border-2 p-2 break-all"
+      class="flex-grow rounded-lg border-2"
       @keyup.enter="sendMsg(message)"
-      placeholder="send the fcking mesasge"
     />
   </div>
 </template>
@@ -26,7 +25,6 @@ export default defineComponent({
 
     const sendMsg = (content: string) => {
       if (content !== "") {
-        console.log(content)
         socket.emit("private message", {
           content,
           to: props.recipientId,

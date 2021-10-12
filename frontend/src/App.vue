@@ -1,11 +1,9 @@
 <template>
-  <div class="h-full flex">
-    <div id="nav" class="w-1/6 bg-gray-500 col-span-1 sticky top-0">
-      <div class="border-2"><router-link to="/">Home</router-link></div>
-      <div class="border-2"><router-link to="/chat">Chat</router-link></div>
+  <div class="mx-4">
+    <div id="nav">
+      <router-link to="/chat">Chat</router-link>
     </div>
-    <router-view class="w-full "/>
-    <div class="w-1/12 bg-gray-500">Extra sidebar Placeholder</div>
+    <router-view />
   </div>
 </template>
 
