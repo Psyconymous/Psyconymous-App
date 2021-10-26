@@ -95,10 +95,10 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   socket.on('client_disconnect', ({ to }) => {
     io.in(to).emit('client_disconnected', '')
   })  
-  // disconnect handler
-  socket.on('disconnect', () => {
-    sessionDB.deleteSession(socket.sessionID)
-  })
+  // // disconnect handler
+  // socket.on('disconnect', () => {
+  //   sessionDB.deleteSession(socket.sessionID)
+  // })
 }
 
 export default { main, middleware }

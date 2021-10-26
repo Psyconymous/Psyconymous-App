@@ -144,11 +144,13 @@ export default defineComponent({
       localStorage.setItem("sessionID", sessionID);
       socket.id = userID;
       socket.emit("match");
+      console.log("matching in progress");
     });
 
     socket.on("connect_error", () => {
       error.value = "There was problem connecting to the server :/";
     });
+
     const chatPartner = ref("");
     socket.on("matched", (response) => {
       chatPartner.value = response.matchedUser;
@@ -170,9 +172,10 @@ export default defineComponent({
       matched.value = false;
       socket.emit("match");
     });
+
     onBeforeRouteLeave(() => {
       socket.emit("client_disconnect", { to: chatPartner.value });
-      socket.emit("disconnect");
+      /* socket.emit("disconnect"); */
       socket.offAny();
       socket.disconnect();
     });
