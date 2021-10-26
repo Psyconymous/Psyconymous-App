@@ -42,6 +42,9 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   // attempt to match user with other users
   socket.on('match', () => {
     if (db.length === 1) {
+      if (socket.userID === db[0].userId) {
+        return
+      }
       // send to matched users
       // remove first index from memory DB
       io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[0].userId })
