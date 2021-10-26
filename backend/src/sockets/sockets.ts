@@ -54,6 +54,9 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       // random number gen and match with one of the users
       // inform the matched users and remove from in memory db
       const random = Math.floor(Math.random() * ((db.length - 1) - 0 + 1) + 0)
+      if (socket.userID === db[random].userId) {
+        return
+      }
       io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[random].userId })
       io.in(db[random].userId).emit('matched', { to: db[random].userId, matchedUser: socket.userID })
       db.splice(random, 1)
