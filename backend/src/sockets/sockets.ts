@@ -62,7 +62,11 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       db.splice(random, 1)
     } else if (db.length === 0) {
       // add user to waiting list and inform them
-      db.push({ userId: socket.userID! })
+      let waitingUser = { userId: socket.userID! }
+      if (db.indexOf(waitingUser) !== -1) {
+        return
+      }
+      db.push(waitingUser)
       io.in(socket.id).emit('not_matched', { message: 'please wait' })
     }
   })
