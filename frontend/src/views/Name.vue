@@ -4,19 +4,23 @@
   >
     <div class="my-auto">
       <h1>Input Your Name!</h1>
-      <input
-        class="my-auto mx-auto px-2"
-        @keydown.enter="registerName()"
-        placeholder="your name"
-        v-model="username"
-        type="text"
-      />
+      <div class="">
+        <input
+          class="my-auto mx-auto px-2 rounded"
+          @keydown.enter="registerName()"
+          placeholder="your name"
+          v-model="username"
+          type="text"
+        />
+        <button class="m-2 p-2 rounded border bg-emerald-300" @click="generateName">Generate One For Me!</button>
+      </div>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import * as adjectivesAndNames from  "../assets/adjectivesAndNouns.json";
 
 export default defineComponent({
   setup() {
@@ -27,7 +31,6 @@ export default defineComponent({
       currentRoute.params.next !== undefined && currentRoute.params.next !== "";
 
     const username = ref("");
-    /* TODO: Allow users to generate random usernames for themselves */
     const registerName = () => {
       if (username.value !== "") {
         window.localStorage.setItem("name", username.value);
@@ -44,7 +47,18 @@ export default defineComponent({
       }
       username.value = "";
     };
-    return { username, registerName };
+
+    // generate a random name from a random adjective and noun found in adjectivesAndNouns.json
+    const generateName = () => {
+      // @ronald Does the - 1 - 0 + 1 +0 even do anything???? seems kinda useless
+      let random1 = Math.floor(Math.random() * ((adjectivesAndNames.adjectives.length - 1) - 0 + 1) + 0);
+      let random2 = Math.floor(Math.random() * ((adjectivesAndNames.nouns.length - 1) - 0 + 1) + 0);
+      username.value = adjectivesAndNames.adjectives[random1] + ' ' + adjectivesAndNames.nouns[random2];
+      console.log(Math.random())
+      return
+    }
+
+    return { username, registerName, generateName };
   },
 });
 </script>
