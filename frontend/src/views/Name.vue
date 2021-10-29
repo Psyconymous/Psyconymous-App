@@ -19,6 +19,7 @@ export default defineComponent({
       if(name.value !== "") {
         window.localStorage.setItem('name', name.value);
       }
+      name.value = ""
     };
     return { name, registerName }
   },
