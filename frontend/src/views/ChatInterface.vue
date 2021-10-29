@@ -121,11 +121,11 @@ export default defineComponent({
   },
 
   setup() {
-    const usernameAlreadySelected = ref(false);
+    /* const usernameAlreadySelected = ref(false); */
     const sessionID = localStorage.getItem("sessionID");
 
     if (sessionID) {
-      usernameAlreadySelected.value = true;
+      /* usernameAlreadySelected.value = true; */
       socket.auth = { sessionID };
       socket.connect();
     }
