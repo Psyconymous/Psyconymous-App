@@ -18,6 +18,7 @@ function middleware (socket: dynamicSocket, next: any, sessionDB: any) {
     }
   }
 
+  // adding username support 
   socket.sessionID = randomID()
   socket.userID = randomID()
   next()
@@ -42,6 +43,9 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   // attempt to match user with other users
   socket.on('match', () => {
     if (db.length === 1) {
+      if (socket.userID === db[0].userId) {
+        return
+      }
       // send to matched users
       // remove first index from memory DB
       io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[0].userId })
@@ -51,12 +55,19 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       // random number gen and match with one of the users
       // inform the matched users and remove from in memory db
       const random = Math.floor(Math.random() * ((db.length - 1) - 0 + 1) + 0)
+      if (socket.userID === db[random].userId) {
+        return
+      }
       io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[random].userId })
       io.in(db[random].userId).emit('matched', { to: db[random].userId, matchedUser: socket.userID })
       db.splice(random, 1)
     } else if (db.length === 0) {
       // add user to waiting list and inform them
-      db.push({ userId: socket.userID! })
+      let waitingUser = { userId: socket.userID! }
+      if (db.indexOf(waitingUser) !== -1) {
+        return
+      }
+      db.push(waitingUser)
       io.in(socket.id).emit('not_matched', { message: 'please wait' })
     }
   })
@@ -95,10 +106,10 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   socket.on('client_disconnect', ({ to }) => {
     io.in(to).emit('client_disconnected', '')
   })  
-  // disconnect handler
-  socket.on('disconnect', () => {
-    sessionDB.deleteSession(socket.sessionID)
-  })
+  // // disconnect handler
+  // socket.on('disconnect', () => {
+  //   sessionDB.deleteSession(socket.sessionID)
+  // })
 }
 
 export default { main, middleware }

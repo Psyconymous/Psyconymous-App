@@ -9,7 +9,7 @@
       >
         {{ message.from }}
       </h3>
-      <p class="border-2 rounded-lg px-2 break-all ">{{ message.content }}</p>
+      <p class="border-2 rounded-lg px-2 break-all">{{ message.content }}</p>
     </div>
   </div>
 </template>

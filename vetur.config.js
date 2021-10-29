@@ -11,12 +11,12 @@ module.exports = {
   // **optional** default: `[{ root: './'  }]`
   // support monorepos
     projects: [
-      './packages/repo2', // Shorthand for specifying only the project root location
+      /* './', // Shorthand for specifying only the project root location */
       {
         // **required**
         // Where is your project?\
         // It is relative to `vetur.config.js`
-        root: './frontend',
+        root: './frontend/',
         package: './package.json',
         tsconfig: './tsconfig.json',
         globalComponents: [

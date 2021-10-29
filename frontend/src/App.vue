@@ -4,7 +4,7 @@
       <div class="border-2"><router-link to="/">Home</router-link></div>
       <div class="border-2"><router-link to="/chat">Chat</router-link></div>
     </div>
-    <router-view class="w-full "/>
+    <router-view class="w-full" />
     <div class="w-1/12 bg-gray-500">Extra sidebar Placeholder</div>
   </div>
 </template>

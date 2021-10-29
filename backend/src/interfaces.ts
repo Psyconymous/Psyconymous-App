@@ -7,4 +7,5 @@ export interface User {
 export interface dynamicSocket extends Socket {
   sessionID? : string
   userID? : string
+  username? : string
 }
