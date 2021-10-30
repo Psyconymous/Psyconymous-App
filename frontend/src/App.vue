@@ -3,6 +3,13 @@
     <div id="nav" class="w-1/6 bg-gray-500 col-span-1 sticky top-0">
       <div class="border-2"><router-link to="/">Home</router-link></div>
       <div class="border-2"><router-link to="/chat">Chat</router-link></div>
+      <div class="border-2">
+        <router-link
+          to="/name"
+          :class="{ 'router-link-exact-active': route.name === 'Name' }"
+          >Name</router-link
+        >
+      </div>
     </div>
     <router-view class="w-full" />
     <div class="w-1/12 bg-gray-500">Extra sidebar Placeholder</div>
@@ -31,3 +38,15 @@
   color: #42b983;
 }
 </style>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useRoute } from "vue-router";
+
+export default defineComponent({
+  setup() {
+    const route = useRoute();
+    return { route };
+  },
+});
+</script>

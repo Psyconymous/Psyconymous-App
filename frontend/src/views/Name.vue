@@ -12,7 +12,12 @@
           v-model="username"
           type="text"
         />
-        <button class="m-2 p-2 rounded border bg-emerald-300" @click="generateName">Generate One For Me!</button>
+        <button
+          class="m-2 p-2 rounded border bg-emerald-300"
+          @click="generateName"
+        >
+          Generate One For Me!
+        </button>
       </div>
     </div>
   </div>
@@ -20,7 +25,7 @@
 <script lang="ts">
 import { ref, defineComponent } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import * as adjectivesAndNames from  "../assets/adjectivesAndNouns.json";
+import * as adjectivesAndNames from "../assets/adjectivesAndNouns.json";
 
 export default defineComponent({
   setup() {
@@ -51,12 +56,18 @@ export default defineComponent({
     // generate a random name from a random adjective and noun found in adjectivesAndNouns.json
     const generateName = () => {
       // @ronald Does the - 1 - 0 + 1 +0 even do anything???? seems kinda useless
-      let random1 = Math.floor(Math.random() * ((adjectivesAndNames.adjectives.length - 1) - 0 + 1) + 0);
-      let random2 = Math.floor(Math.random() * ((adjectivesAndNames.nouns.length - 1) - 0 + 1) + 0);
-      username.value = adjectivesAndNames.adjectives[random1] + ' ' + adjectivesAndNames.nouns[random2];
-      console.log(Math.random())
-      return
-    }
+      let random1: number = Math.floor(
+        Math.random() * (adjectivesAndNames.adjectives.length - 1 - 0 + 1) + 0
+      );
+      let random2: number = Math.floor(
+        Math.random() * (adjectivesAndNames.nouns.length - 1 - 0 + 1) + 0
+      );
+      username.value =
+        adjectivesAndNames.adjectives[random1] +
+        " " +
+        adjectivesAndNames.nouns[random2];
+      return;
+    };
 
     return { username, registerName, generateName };
   },
