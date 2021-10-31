@@ -7,7 +7,7 @@
           previousMessage === undefined || message.from !== previousMessage.from
         "
       >
-        {{ message.from }}
+        {{ message.username }}
       </h3>
       <p class="border-2 rounded-lg px-2 break-all">{{ message.content }}</p>
     </div>

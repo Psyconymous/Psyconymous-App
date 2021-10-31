@@ -78,9 +78,10 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   })
 
   // private messages, recieve and sent out to a specific user that is online
-  socket.on('private message', ({ content, to }) => {
+  socket.on('private message', ({ content, username, to }) => {
     socket.to(to).to(socket.userID!).emit('private message', {
       content,
+      username,
       from: socket.userID
     })
   })
