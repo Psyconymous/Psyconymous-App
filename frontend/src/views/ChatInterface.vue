@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen flex flex-col overflow-y-hidden bg-emerald-500 container"
+    class="flex flex-col overflow-y-hidden bg-emerald-500 container"
   >
     <div v-if="!matched" class="pt-5 h-full flex">
       <div class="m-auto">
