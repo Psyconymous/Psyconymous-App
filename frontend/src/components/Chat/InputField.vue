@@ -34,7 +34,7 @@ export default defineComponent({
           to: props.recipientId,
         });
         message.value = "";
-        emit("sentMsg", { message: { content: content, from: socket.id } });
+        emit("sentMsg", { message: { content, username, from: socket.id } });
       }
     };
     return { message, sendMsg };
