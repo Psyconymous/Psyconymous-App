@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "mental health app",
   "scripts": {
-    "postinstall":"npm install --prefix=backend && npm install --prefix=frontend",
+    "postinstall":"npm install --prefix=backend && npm install --prefix=frontend && go get . --prefix=api",
     "start:api": "npm run start --prefix=backend",
     "start:web": "npm run start --prefix=frontend",
-    "start": "./node_modules/.bin/concurrently \"npm run start:api\" \"npm run start:web\"",
+    "start:rest": "./api/main",
+    "start": "./node_modules/.bin/concurrently \"npm run start:api\" \"npm run start:web\" \"npm run start:rest\" ",
     "dev-backend": "cd backend && npm run dev",
     "dev-frontend": "cd frontend && npm run dev",
-    "dev": "./node_modules/.bin/concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
+    "dev-rest":"cd api && go run main.go",
+    "dev": "./node_modules/.bin/concurrently \"npm run dev-backend\" \"npm run dev-frontend\" \"npm run dev-rest\""
   },
   "repository": {
     "type": "git",
