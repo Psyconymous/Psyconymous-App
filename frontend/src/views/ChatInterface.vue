@@ -143,7 +143,7 @@ export default defineComponent({
       socket.auth = { sessionID };
       localStorage.setItem("sessionID", sessionID);
       socket.id = userID;
-      socket.emit("match");
+      socket.emit("match", {username: window.localStorage.getItem("name")});
       console.log("matching in progress");
     });
 
@@ -153,9 +153,9 @@ export default defineComponent({
 
     const chatPartner = ref("");
     socket.on("matched", (response) => {
-      chatPartner.value = response.matchedUser;
+      chatPartner.value = response.matchedUsername;
       matched.value = true;
-      console.log(`You are matched with ${chatPartner.value}`);
+      console.log(`You are matched with ${chatPartner.value}, ${response.matchedUsername}`);
     });
 
     const messages = ref([] as Array<any>);
