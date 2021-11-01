@@ -27,7 +27,9 @@ However the session ID will be saved to make sure that the connection doesn't in
 ``` gh repo clone Psyconymous/Psyconymous-App ```
 2) Install Dependencies
 ``` cd Psyconymous-App && npm install ```
-3) Run the App in Dev environment using
+3) Install Go Dependencies
+``` cd api && go get . ```
+4) Run the App in Dev environment using
 ``` npm run dev ```
 
 ## Tech Stack
@@ -38,4 +40,6 @@ Frontend
 Backend
 - Express
 - Socket.io
-- MongoDB
+
+REST API (go)
+- Fiber
