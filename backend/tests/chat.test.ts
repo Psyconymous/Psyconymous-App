@@ -7,6 +7,7 @@ import MemoryStorage from '../src/sockets/sessionStorage'
 
 interface User {
   userId: string
+  username: string
 }
 
 describe('chat system', () => {

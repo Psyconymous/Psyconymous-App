@@ -24,4 +24,17 @@ const router = createRouter({
   routes,
 });
 
+// Ensuring user has username before entering chat page
+router.beforeEach((to, from, next) => {
+  if (
+    to.name === "Chat" &&
+    !(
+      localStorage.getItem("name") !== "" &&
+      localStorage.getItem("name") !== null
+    )
+  )
+    next({ name: "Name", params: { next: "Chat" } });
+  else next();
+});
+
 export default router;

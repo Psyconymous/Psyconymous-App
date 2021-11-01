@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen flex flex-col overflow-y-hidden bg-emerald-500 container"
+    class="flex flex-col overflow-y-hidden bg-emerald-500 container"
   >
     <div v-if="!matched" class="pt-5 h-full flex">
       <div class="m-auto">
@@ -79,7 +79,7 @@
             Sweet, now you can chat with
           </p>
           <p class="text-4xl">
-            <span class="text-gray-500">{{ chatPartner }}</span>
+            <span class="text-gray-500">{{ chatUsername }}</span>
             <span class="text-gray-500 opacity-60">!</span>
           </p>
         </div>
@@ -121,11 +121,11 @@ export default defineComponent({
   },
 
   setup() {
-    const usernameAlreadySelected = ref(false);
+    /* const usernameAlreadySelected = ref(false); */
     const sessionID = localStorage.getItem("sessionID");
 
     if (sessionID) {
-      usernameAlreadySelected.value = true;
+      /* usernameAlreadySelected.value = true; */
       socket.auth = { sessionID };
       socket.connect();
     }
@@ -143,7 +143,7 @@ export default defineComponent({
       socket.auth = { sessionID };
       localStorage.setItem("sessionID", sessionID);
       socket.id = userID;
-      socket.emit("match");
+      socket.emit("match", {username: window.localStorage.getItem("name")});
       console.log("matching in progress");
     });
 
@@ -152,15 +152,18 @@ export default defineComponent({
     });
 
     const chatPartner = ref("");
+    const chatUsername = ref("");
     socket.on("matched", (response) => {
       chatPartner.value = response.matchedUser;
+      chatUsername.value = response.matchedUsername;
       matched.value = true;
-      console.log(`You are matched with ${chatPartner.value}`);
+      console.log(`You are matched with ${chatPartner.value}, ${response.matchedUsername}`);
     });
 
     const messages = ref([] as Array<any>);
     socket.on("private message", (data) => {
       // Will implement some logic to check if this is a correct recipient
+      data.username = chatUsername.value
       messages.value.push(data);
     });
 
@@ -180,7 +183,7 @@ export default defineComponent({
       socket.disconnect();
     });
 
-    return { matched, chatPartner, error, messages, socket, onSentMsg };
+    return { matched, chatPartner, error, messages, socket, onSentMsg, chatUsername };
   },
 });
 </script>

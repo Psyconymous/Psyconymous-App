@@ -22,6 +22,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    let username = localStorage.getItem("name");
     const message = ref("");
 
     const sendMsg = (content: string) => {
@@ -29,10 +30,11 @@ export default defineComponent({
         console.log(content);
         socket.emit("private message", {
           content,
+          username, 
           to: props.recipientId,
         });
         message.value = "";
-        emit("sentMsg", { message: { content: content, from: socket.id } });
+        emit("sentMsg", { message: { content: content, username: username, from: socket.id } });
       }
     };
     return { message, sendMsg };

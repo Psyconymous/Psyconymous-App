@@ -9,6 +9,7 @@ interface pingArgs {
 }
 interface User {
   userId: string
+  username: string
 }
 
 describe('Ping Sockets', () => {

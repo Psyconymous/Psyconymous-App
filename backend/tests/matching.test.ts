@@ -7,6 +7,7 @@ import MemoryStorage from '../src/sockets/sessionStorage'
 
 interface User {
   userId: string
+  username: string
 }
 
 describe('chat system', () => {
@@ -47,12 +48,13 @@ describe('chat system', () => {
       target = res.userID
     })
 
-    clientServerOne.emit('match', '')
-    clientServerTwo.emit('match', '')
+    clientServerOne.emit('match', { username: 'dog' })
+    clientServerTwo.emit('match', { username: 'cat' })
 
     clientServerOne.on('matched', (res:any) => {
       expect(res.to).toBe(to)
       expect(res.matchedUser).toBe(target)
+      expect(res.matchedUsername).toBe('cat')
       done()
     })
   })
