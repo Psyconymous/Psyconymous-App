@@ -18,7 +18,7 @@ function middleware (socket: dynamicSocket, next: any, sessionDB: any) {
     }
   }
 
-  // adding username support 
+  // adding username support
   socket.sessionID = randomID()
   socket.userID = randomID()
   next()
@@ -41,15 +41,15 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   })
 
   // attempt to match user with other users
-  socket.on('match', () => {
+  socket.on('match', ({ username }) => {
     if (db.length === 1) {
       if (socket.userID === db[0].userId) {
         return
       }
       // send to matched users
       // remove first index from memory DB
-      io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[0].userId })
-      io.in(db[0].userId).emit('matched', { to: db[0].userId, matchedUser: socket.userID })
+      io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[0].userId, matchedUsername: db[0].username })
+      io.in(db[0].userId).emit('matched', { to: db[0].userId, matchedUser: socket.userID, matchedUsername: username })
       db.splice(0, 1)
     } else if (db.length > 1) {
       // random number gen and match with one of the users
@@ -58,12 +58,12 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       if (socket.userID === db[random].userId) {
         return
       }
-      io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[random].userId })
-      io.in(db[random].userId).emit('matched', { to: db[random].userId, matchedUser: socket.userID })
+      io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[random].userId, matchedUsername: db[random].username })
+      io.in(db[random].userId).emit('matched', { to: db[random].userId, matchedUser: socket.userID, matchedUsername: username })
       db.splice(random, 1)
     } else if (db.length === 0) {
       // add user to waiting list and inform them
-      let waitingUser = { userId: socket.userID! }
+      const waitingUser = { userId: socket.userID!, username }
       if (db.indexOf(waitingUser) !== -1) {
         return
       }
@@ -106,7 +106,7 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   // disconnect
   socket.on('client_disconnect', ({ to }) => {
     io.in(to).emit('client_disconnected', '')
-  })  
+  })
   // // disconnect handler
   // socket.on('disconnect', () => {
   //   sessionDB.deleteSession(socket.sessionID)
