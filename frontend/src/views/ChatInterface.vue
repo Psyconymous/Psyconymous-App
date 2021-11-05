@@ -169,13 +169,13 @@ export default defineComponent({
 
     const onSentMsg = (message: any) => messages.value.push(message.message);
 
-    socket.on("client_disconnected", () => {
+    socket.on("disconnected", () => {
       console.log("he left ;-;");
       chatPartner.value = "";
       matched.value = false;
-      socket.emit("match");
+      socket.emit("match", window.localStorage.getItem("name"));
     });
-
+    
     onBeforeRouteLeave(() => {
       socket.emit("client_disconnect", { to: chatPartner.value });
       /* socket.emit("disconnect"); */
