@@ -173,7 +173,7 @@ export default defineComponent({
       console.log("he left ;-;");
       chatPartner.value = "";
       matched.value = false;
-      socket.emit("match", window.localStorage.getItem("name"));
+      // socket.emit("match", window.localStorage.getItem("name"));
     });
     
     onBeforeRouteLeave(() => {

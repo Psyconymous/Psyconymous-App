@@ -13,7 +13,6 @@ function middleware (socket: dynamicSocket, next: any, sessionDB: any) {
     const session = sessionDB.findSession(sessionID)
     if (session) {
       socket.sessionID = sessionID
-      socket.userID = session.userID
       return next()
     }
   }
@@ -25,12 +24,7 @@ function middleware (socket: dynamicSocket, next: any, sessionDB: any) {
 }
 
 function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) {
-  let target : Array<string> = []
-
-  // persist session
-  sessionDB.saveSession(socket.sessionID, {
-    userID: socket.userID
-  })
+  let target : string = ''
 
   socket.join(socket.userID!)
 
@@ -50,7 +44,7 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       }
       // send to matched users
       // remove first index from memory DB
-      target.push(db[0].userId)
+      target = db[0].userId
       io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[0].userId, matchedUsername: db[0].username })
       io.in(db[0].userId).emit('matched', { to: db[0].userId, matchedUser: socket.userID, matchedUsername: username })
       db.splice(0, 1)
@@ -61,7 +55,7 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
       if (socket.userID === db[random].userId) {
         return
       }
-      target.push(db[random].userId)
+      target = db[random].userId
       io.in(socket.userID).emit('matched', { to: socket.userID, matchedUser: db[random].userId, matchedUsername: db[random].username })
       io.in(db[random].userId).emit('matched', { to: db[random].userId, matchedUser: socket.userID, matchedUsername: username })
       db.splice(random, 1)
@@ -110,8 +104,7 @@ function main (socket: dynamicSocket, io: any, db: Array<User>, sessionDB: any) 
   
   // disconnect handler
   socket.on('disconnect', () => {
-    socket.broadcast.to(target[0]).emit('disconnected', '')
-    target.shift()
+    io.to(target).emit('disconnected', '')
   })
 }
 
