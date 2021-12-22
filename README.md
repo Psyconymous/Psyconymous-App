@@ -1,5 +1,5 @@
 <p align="center"> 
-  <img width="256px" src="./frontend/public/logo.png"></img>
+  <img width="256px" src="./apps/frontend/public/logo.png"></img>
 
   <h1 align="center"> Psyconymous </h1>
 
