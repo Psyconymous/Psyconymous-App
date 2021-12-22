@@ -1,31 +1,59 @@
 {
   "name": "psyconymous",
-  "version": "1.0.0",
-  "description": "mental health app",
-  "scripts": {
-    "postinstall":"npm install --prefix=backend && npm install --prefix=frontend",
-    "start:api": "npm run start --prefix=backend",
-    "start:web": "npm run start --prefix=frontend",
+    "version": "1.0.0",
+    "description": "mental health app",
+    "scripts": {
+      "postinstall": "npm install --prefix=backend && npm install --prefix=frontend",
+      "start:api": "npm run start --prefix=apps/backend",
+      "start:web": "npm run start --prefix=apps/frontend",
     "start": "./node_modules/.bin/concurrently \"npm run start:api\" \"npm run start:web\"",
-    "dev-backend": "cd backend && npm run dev",
-    "dev-frontend": "cd frontend && npm run dev",
-    "dev": "./node_modules/.bin/concurrently \"npm run dev-backend\" \"npm run dev-frontend\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Psyconymous/Psyconymous-App.git"
-  },
-  "keywords": [
-    "mental-health"
-  ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Psyconymous/Psyconymous-App/issues"
-  },
-  "homepage": "https://github.com/Psyconymous/Psyconymous-App#readme",
-  "dependencies": {
-    "concurrently": "^6.2.1",
-    "serve": "^12.0.0"
-  }
+      "build": "turbo run build",
+      "dev": "turbo run dev --parallel",
+      "lint": "turbo run lint",
+      "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Psyconymous/Psyconymous-App.git"
+    },
+    "keywords": [
+      "mental-health"
+    ],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/Psyconymous/Psyconymous-App/issues"
+    },
+    "homepage": "https://github.com/Psyconymous/Psyconymous-App#readme",
+    "dependencies": {
+      "concurrently": "^6.2.1",
+      "serve": "^12.0.0"
+    },
+    "devDependencies": {
+      "turbo": "^1.0.19"
+    },
+
+    "turbo": {
+      "baseBranch": "origin/main",
+      "pipeline": {
+        "build": {
+          "dependsOn": ["^build"],
+          "outputs": [".next/**"]
+        },
+        "test": {
+          "dependsOn": ["^build"],
+          "outputs": []
+        },
+        "lint": {
+          "outputs": []
+        },
+        "dev": {
+          "cache": false
+        }
+      }
+    },
+    "workspaces":[
+      "packages/*",
+      "apps/*"
+    ]
 }

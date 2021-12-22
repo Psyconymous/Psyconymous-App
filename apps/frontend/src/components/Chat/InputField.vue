@@ -30,11 +30,13 @@ export default defineComponent({
         console.log(content);
         socket.emit("private message", {
           content,
-          username, 
+          username,
           to: props.recipientId,
         });
         message.value = "";
-        emit("sentMsg", { message: { content: content, username: username, from: socket.id } });
+        emit("sentMsg", {
+          message: { content: content, username: username, from: socket.id },
+        });
       }
     };
     return { message, sendMsg };
